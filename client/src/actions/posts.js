@@ -15,6 +15,10 @@ export const getPosts = () => async (dispatch) => {
 export const createPost = (post) => async (dispatch) => {
   try {
     const { data } = await api.createPost(post);
+    //console.log(data._id)
+    //console.log(post)
+    //const feedback = await api.fetchSentiment(data._id, post)
+    //console.log(feedback)
 
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
