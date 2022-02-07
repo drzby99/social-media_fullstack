@@ -12,6 +12,12 @@ app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
+//////////////////////
+
+//app.use(express.json())
+//app.use(express.urlencoded({ extended: false }));
+
+/////////////////////
 app.use('/posts', postRoutes);
 
 const CONNECTION_URL = 'mongodb+srv://phbk:Ssyzby520@cluster0.n6knc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
