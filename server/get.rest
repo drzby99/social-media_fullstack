@@ -1,5 +1,12 @@
-GET http://localhost:5000/posts/61ff1a64bfa1ea2c7ce37324
+GET http://localhost:5000/posts/1/feedback
 
 ###
-POST http://localhost:5000/posts/61ff1a64bfa1ea2c7ce37324/feedback HTTP/1.1
+POST http://localhost:5000/posts/1/feedback HTTP/1.1
 content-type: application/json
+
+{
+    "message": "happy day"
+}
+
+###
+GET http://localhost:5000/posts/1/feedback
