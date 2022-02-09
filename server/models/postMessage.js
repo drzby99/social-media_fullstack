@@ -14,6 +14,10 @@ const postSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    sentiment: {
+        type: Number,
+        default: 0,
+    }
 })
 
 var PostMessage = mongoose.model('PostMessage', postSchema);

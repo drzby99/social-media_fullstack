@@ -15,4 +15,7 @@ export default makeStyles(() => ({
   image: {
     marginLeft: '15px',
   },
+  Form: {
+    border: '10px',
+  }
 }));

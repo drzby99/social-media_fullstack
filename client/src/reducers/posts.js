@@ -1,19 +1,23 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
 
-export default (posts = [], action) => {
+export default (state = [], action) => {
   switch (action.type) {
-    case FETCH_ALL:
+    case 'FETCH_ALL':
+      //When App.js dispatches getPosts(), it goes to actions/posts to dispatch
+      //and calls api/index's fetchPosts(). The returned result (data), which has all the posts  
+      //is then passed thru the second parameter, payload: data with the call to this 'FETCH_ALL'
+      //Therefore we can write return action.payload to return all posts
       return action.payload;
-    case LIKE:
-      return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
-    case CREATE:
-      return [...posts, action.payload];
-    case UPDATE:
-      return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
-    case DELETE:
-      return posts.filter((post) => post._id !== action.payload);
+    case 'CREATE':
+      //returning all the posts plus the new post, which is in action.payload dispatched by actions/posts
+        return [...state, action.payload];
+    case 'LIKE':
+      return state.map((post) => (post._id === action.payload._id ? action.payload : post));
+    case 'UPDATE':
+      return state.map((post) => (post._id === action.payload._id ? action.payload : post));
+    case 'DELETE':
+      return state.filter((post) => post._id !== action.payload);
     default:
-      return posts;
+      return state;
   }
 };
 

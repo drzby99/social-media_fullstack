@@ -13,6 +13,7 @@ const App = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  //useEffect triggers dispatch action. (dispatch is needed in the second para aka. dependency array)
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
@@ -25,12 +26,10 @@ const App = () => {
       </AppBar>
       <Grow in>
         <Container>
-          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-            
-            <Grid item xs={10} sm={4}>
-              <Form currentId={currentId} setCurrentId={setCurrentId} />
-            </Grid>
-            <Grid item xs={12} sm={7}>
+          <Grid container justify="space-between" alignItems="stretch" spacing={1}>
+          <Form currentId={currentId} setCurrentId={setCurrentId} />
+
+            <Grid item xs={12} sm={12}>
               <Posts setCurrentId={setCurrentId} />
             </Grid>
           

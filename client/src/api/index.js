@@ -9,4 +9,4 @@ export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updat
 export const deletePost = (id) => axios.delete(`${url}/${id}`);
 
 
-export const fetchSentiment = (id) => axios.post(`${url}/${id}/feedback`);
+//export const fetchFeedback = (id, post) => axios.patch(`${url}/${id}/feedback`, post);
