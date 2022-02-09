@@ -13,6 +13,7 @@ export default (state = [], action) => {
     case 'LIKE':
       return state.map((post) => (post._id === action.payload._id ? action.payload : post));
     case 'UPDATE':
+      console.log(state.map(post => post.createdAt))
       return state.map((post) => (post._id === action.payload._id ? action.payload : post));
     case 'DELETE':
       return state.filter((post) => post._id !== action.payload);

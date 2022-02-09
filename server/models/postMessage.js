@@ -4,21 +4,21 @@ const postSchema = mongoose.Schema({
     title: String,
     message: String,
     creator: String,
-    tags: [String],
     selectedFile: String,
     likeCount: {
         type: Number,
         default: 0,
     },
-    createdAt: {
+    /*createdAt: {
         type: Date,
         default: Date.now,
-    },
+    },*/
     sentiment: {
-        type: Number,
-        default: 0,
+        type: String,
+        default: '0',
     }
 })
+postSchema.set('timestamps', true);
 
 var PostMessage = mongoose.model('PostMessage', postSchema);
 

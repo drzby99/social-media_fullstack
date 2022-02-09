@@ -6,8 +6,6 @@ import PostMessage from '../models/postMessage.js';
 import natural from 'natural'
 import stopword from 'stopword'
 
-
-
 const router = express.Router();
 
 export const getPosts = async (req, res) => { 
@@ -21,10 +19,69 @@ export const getPosts = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const { title, message, selectedFile, creator, tags } = req.body;
-    console.log(typeof message)
-    // NLP Logic
-	// Convert all data to its standard form
+    const { title, message, selectedFile, creator } = req.body;
+	let analysis_score = nlp(message)
+
+    const newPostMessage = new PostMessage({ title, message, selectedFile, creator, sentiment: analysis_score })
+
+    try {
+        await newPostMessage.save();
+
+        res.status(201).json(newPostMessage );
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+}
+
+export const getPost = async (req, res) => { 
+    const { id } = req.params;
+
+    try {
+        const post = await PostMessage.findById(id);
+        
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(404).json({ message: error });
+    }
+}
+
+export const updatePost = async (req, res) => {
+    const { id } = req.params;
+    let { title, message, creator, selectedFile, sentiment } = req.body;
+	sentiment = nlp(message) 
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+    const updatedPost = { creator, title, message, selectedFile, sentiment, _id: id };
+    await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+	console.log(updatedPost)
+    res.json(updatedPost);
+}
+
+export const deletePost = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+    await PostMessage.findByIdAndRemove(id);
+
+    res.json({ message: "Post deleted successfully." });
+}
+
+export const likePost = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    
+    const post = await PostMessage.findById(id);
+
+    const likedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+    
+    res.json(likedPost);
+}
+
+
+//////////////////////////////NLP Functions 
+const nlp = (message) => {
 	const lexData = convertToStandard(message);
 	console.log("Lexed Data: ",lexData);
 
@@ -50,122 +107,7 @@ export const createPost = async (req, res) => {
 	new natural.SentimentAnalyzer('English', natural.PorterStemmer, 'afinn');
 	const analysis_score = Sentianalyzer.getSentiment(filteredData);
 	console.log("Sentiment Score: ",analysis_score);
-
-    //////////////////////////////////
-
-
-    const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags, sentiment: analysis_score })
-
-
-    try {
-        await newPostMessage.save();
-
-        res.status(201).json(newPostMessage );
-    } catch (error) {
-        res.status(409).json({ message: error.message });
-    }
-
-
-    /////////////////////////////////
-    /*const { title, message, selectedFile, creator, tags } = req.body;
-    getTone(message)
-            .then(tone => {
-                console.log(tone)
-            });
-
-        // Could asyncronously send message and make ML prediction, 
-        // then tag along predicted tone using UUID mapping of message
-
-        updateSentiment(message.body);
-    
-        // Get tone of message
-    let getTone = async (input_text) => {
-        let tone = '';
-
-        // Get tone using IBM Cloud Tone Analyzer API  
-        const toneParams = {
-            toneInput: { 'text': input_text },
-            contentType: 'application/json',
-        };
-
-        await toneAnalyzer.tone(toneParams)
-            .then(toneAnalysis => {
-                console.log(JSON.stringify(toneAnalysis, null, 2));
-                tone = toneAnalysis.result.document_tone.tones[0].tone_name || '';
-            })
-            .catch(err => {
-                console.log('error:', err);
-            });
-        return tone;
-    }
-    let updateSentiment = async (input_text) => {
-        message_count++;
-        predict(input_text)
-            .then(sentiment => {
-                total_sentiment_score += sentiment;
-                io.sockets.emit('get sentiment', total_sentiment_score / message_count);
-            })
-            .catch(err => {
-                console.log('error:', err);
-            });
-    }
-
-    try {
-        await newPostMessage.save();
-
-        res.status(201).json(newPostMessage );
-    } catch (error) {
-        res.status(409).json({ message: error.message });
-    }
-    /////////////////////////////////RISKY ZONE
-    */
-}
-
-export const getPost = async (req, res) => { 
-    const { id } = req.params;
-
-    try {
-        const post = await PostMessage.findById(id);
-        
-        res.status(200).json(post);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
-
-export const updatePost = async (req, res) => {
-    const { id } = req.params;
-    const { title, message, creator, selectedFile, tags } = req.body;
-    
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-
-    const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
-
-    await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
-
-    res.json(updatedPost);
-}
-
-export const deletePost = async (req, res) => {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-
-    await PostMessage.findByIdAndRemove(id);
-
-    res.json({ message: "Post deleted successfully." });
-}
-
-export const likePost = async (req, res) => {
-    const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-    
-    const post = await PostMessage.findById(id);
-
-    const likedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
-    
-    res.json(likedPost);
+	return (analysis_score)
 }
 
 // For conversion of contractions to standard lexicon

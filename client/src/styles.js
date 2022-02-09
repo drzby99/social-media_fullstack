@@ -10,12 +10,10 @@ export default makeStyles(() => ({
     alignItems: 'center',
   },
   heading: {
-    color: 'rgba(0,183,255, 1)',
+    color: 'rgb(147, 205, 207)',
   },
   image: {
     marginLeft: '15px',
   },
-  Form: {
-    border: '10px',
-  }
+  
 }));
