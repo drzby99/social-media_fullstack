@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Form from './components/Form/Form';
 import { getPosts } from './actions/posts';
 import useStyles from './styles';
-import memories from './images/memories.png';
+import logo from './images/logo.png';
 
 import Post from './components/Post/Post';
 
@@ -28,8 +28,9 @@ const App = () => {
   return (
     <Container maxWidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">Sentimedia</Typography>
-        <img className={classes.image} src={memories} alt="icon" height="60" />
+        <Typography sx = {{fontWeight: 500, fontStyle: 'italic'}} className={classes.heading} variant="h2" align="center">Sentimedia</Typography>
+        <img className={classes.image} src={logo} alt="icon" height="60" />
+
       </AppBar>
       <Grow in>
         <Container>
