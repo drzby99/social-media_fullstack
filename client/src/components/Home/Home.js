@@ -9,13 +9,13 @@ import Post from '../Post/Post';
 const Home = () => {
     const [currentId, setCurrentId] = useState(0);
     const dispatch = useDispatch();
-  
+    const posts = useSelector((state) => state.posts);
+
     //useEffect triggers dispatch action. (dispatch is needed in the second para aka. dependency array)
     useEffect(() => {
       dispatch(getPosts());
     }, [currentId, dispatch]);
   
-    const posts = useSelector((state) => state.posts);
     return (
         <Grow in>
           <Container>

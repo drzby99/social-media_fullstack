@@ -11,7 +11,6 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between'
   },
   heading: {
-    color: 'black',
     fontWeight: 500,
     marginLeft: "10px",
     fontSize: '3.75rem',

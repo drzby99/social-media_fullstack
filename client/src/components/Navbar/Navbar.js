@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
         <div className = {classes.brandContainer}> 
-            <Typography className={classes.heading} >Sentimedia</Typography>
+            <Typography component={Link} to="/" style={{ textDecoration: 'none' }}className={classes.heading} >Sentimedia</Typography>
             <img className={classes.image} src={logo} alt="icon" height="60" />
         </div>
         <Toolbar className={classes.toolbar}>
