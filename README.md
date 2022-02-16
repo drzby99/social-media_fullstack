@@ -17,4 +17,4 @@ Or click the link below for demo:
 https://sentimedia.netlify.app
 
 
-This app is inspired by JSMastery
+*This app is inspired by JSMastery
