@@ -12,7 +12,7 @@ The FUTURE is here..! Finally, a social media app that knows your feelings.
 To Run:
 Clone the repo, then run npm i && npm start in both the server and client folders
 
-Or click the link below for demo:
+Or click the link below for demo: (it may take a few seconds for the posts to load.. bear with me)
 
 https://sentimedia.netlify.app
 
