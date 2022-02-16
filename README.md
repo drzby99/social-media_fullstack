@@ -1,4 +1,4 @@
-<h1> Sentimedia
+<h1> Sentimedia </h1>
 
 Have you thought of how the world would be if...
 1. You can know the sentiment of someone's posts before even reading the post itself
