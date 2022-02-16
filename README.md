@@ -1,7 +1,7 @@
 <h1> Sentimedia </h1>
 
 Have you thought of how the world would be if...
-1. You can know the sentiment of someone's social media posts before even reading the post itself
+1. You can know the sentiment of someone's social media post before even reading the post itself
 2. The app knows what you are feelings and assigns your posts an emoji without the need for you to manually add one
 3. You can (optionally) add a picture to your posts, as well as liking, editing, and deleting the posts
 
