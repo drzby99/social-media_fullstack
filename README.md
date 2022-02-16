@@ -7,9 +7,14 @@ Have you thought of how the world would be if...
 
 The FUTURE is here..! Finally, a social media app that knows your feelings. 
 
-<h2> The world has been waiting. I, PRESENT TO YOU, the social media that understands your sentiment... </h2>
+<h3> The world has been waiting. I, PRESENT TO YOU, the social media that understands your sentiment </h3>
 
-Sentimedia!
+To Run:
+Clone the repo, then run npm i && npm start in both the server and client folders
+
+Or click the link below for demo:
+
+https://sentimedia.netlify.app
 
 
-
+This app is inspired by JSMastery
